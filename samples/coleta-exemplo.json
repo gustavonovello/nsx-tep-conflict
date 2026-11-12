@@ -1,0 +1,74 @@
+{
+  "SchemaVersion": 1,
+  "CollectedAt": "2026-11-11T09:00:00",
+  "Source": "nsx-exemplo.lab.local",
+  "TransportNodes": [
+    {
+      "Id": "edge01-uuid", "Name": "edge01", "Type": "Edge", "MgmtIps": ["10.0.0.51"], "State": "success",
+      "HostSwitches": [ { "HostSwitch": "nvds-overlay", "Assignment": "StaticIpListSpec", "PoolId": null, "StaticIps": ["172.16.10.20", "172.16.10.21"], "Gateway": "172.16.10.1" } ],
+      "Endpoints": [
+        { "HostSwitch": "nvds-overlay", "Device": "fp-eth0", "Ip": "172.16.10.20", "SubnetMask": "255.255.255.0", "Gateway": "172.16.10.1" },
+        { "HostSwitch": "nvds-overlay", "Device": "fp-eth1", "Ip": "172.16.10.21", "SubnetMask": "255.255.255.0", "Gateway": "172.16.10.1" }
+      ]
+    },
+    {
+      "Id": "edge02-uuid", "Name": "edge02", "Type": "Edge", "MgmtIps": ["10.0.0.52"], "State": "success",
+      "HostSwitches": [ { "HostSwitch": "nvds-overlay", "Assignment": "StaticIpPoolSpec", "PoolId": "pool-edge-uuid", "StaticIps": [], "Gateway": null } ],
+      "Endpoints": [
+        { "HostSwitch": "nvds-overlay", "Device": "fp-eth0", "Ip": "172.16.10.105", "SubnetMask": "255.255.255.0", "Gateway": "172.16.10.1" },
+        { "HostSwitch": "nvds-overlay", "Device": "fp-eth1", "Ip": "172.16.10.106", "SubnetMask": "255.255.255.0", "Gateway": "172.16.10.1" }
+      ]
+    },
+    {
+      "Id": "esx01-uuid", "Name": "esx01", "Type": "Host", "MgmtIps": ["10.0.0.11"], "State": "success",
+      "HostSwitches": [ { "HostSwitch": "vds-01", "Assignment": "StaticIpPoolSpec", "PoolId": "/infra/ip-pools/host-tep-pool", "StaticIps": [], "Gateway": null } ],
+      "Endpoints": [
+        { "HostSwitch": "vds-01", "Device": "vmk10", "Ip": "172.16.10.10", "SubnetMask": "255.255.255.0", "Gateway": "172.16.10.1" },
+        { "HostSwitch": "vds-01", "Device": "vmk11", "Ip": "172.16.10.11", "SubnetMask": "255.255.255.0", "Gateway": "172.16.10.1" }
+      ]
+    },
+    {
+      "Id": "esx02-uuid", "Name": "esx02", "Type": "Host", "MgmtIps": ["10.0.0.12"], "State": "success",
+      "HostSwitches": [ { "HostSwitch": "vds-01", "Assignment": "StaticIpPoolSpec", "PoolId": "pool-host-uuid", "StaticIps": [], "Gateway": null } ],
+      "Endpoints": [
+        { "HostSwitch": "vds-01", "Device": "vmk10", "Ip": "172.16.10.12", "SubnetMask": "255.255.255.0", "Gateway": "172.16.10.1" },
+        { "HostSwitch": "vds-01", "Device": "vmk11", "Ip": "172.16.10.14", "SubnetMask": "255.255.255.0", "Gateway": "172.16.10.1" }
+      ]
+    },
+    {
+      "Id": "esx03-uuid", "Name": "esx03", "Type": "Host", "MgmtIps": ["10.0.0.13"], "State": "success",
+      "HostSwitches": [ { "HostSwitch": "vds-01", "Assignment": "StaticIpPoolSpec", "PoolId": "pool-host-uuid", "StaticIps": [], "Gateway": null } ],
+      "Endpoints": [
+        { "HostSwitch": "vds-01", "Device": "vmk10", "Ip": "172.16.10.21", "SubnetMask": "255.255.255.0", "Gateway": "172.16.10.1" }
+      ]
+    },
+    {
+      "Id": "esx04-uuid", "Name": "esx04", "Type": "Host", "MgmtIps": ["10.0.0.14"], "State": "failed",
+      "HostSwitches": [ { "HostSwitch": "vds-01", "Assignment": "StaticIpPoolSpec", "PoolId": "pool-host-uuid", "StaticIps": [], "Gateway": null } ],
+      "Endpoints": []
+    }
+  ],
+  "Pools": [
+    {
+      "Id": "pool-host-uuid", "Name": "host-tep-pool", "AltIds": ["pool-host-uuid", "host-tep-pool", "/infra/ip-pools/host-tep-pool"], "Source": "Manager API",
+      "Subnets": [ { "Cidr": "172.16.10.0/24", "Gateway": "172.16.10.1", "Ranges": [ { "Start": "172.16.10.10", "End": "172.16.10.100" } ] } ],
+      "Allocations": ["172.16.10.10", "172.16.10.11", "172.16.10.12", "172.16.10.13", "172.16.10.21"],
+      "AllocationsAvailable": true,
+      "Usage": { "Total": 91, "Allocated": 5, "Free": 86 }
+    },
+    {
+      "Id": "pool-edge-uuid", "Name": "edge-tep-pool", "AltIds": ["pool-edge-uuid", "edge-tep-pool", "/infra/ip-pools/edge-tep-pool"], "Source": "Manager API",
+      "Subnets": [ { "Cidr": "172.16.10.0/24", "Gateway": "172.16.10.1", "Ranges": [ { "Start": "172.16.10.90", "End": "172.16.10.110" } ] } ],
+      "Allocations": ["172.16.10.105", "172.16.10.106"],
+      "AllocationsAvailable": true,
+      "Usage": { "Total": 21, "Allocated": 2, "Free": 19 }
+    },
+    {
+      "Id": "pool-old-uuid", "Name": "old-tep-pool", "AltIds": ["pool-old-uuid"], "Source": "Manager API",
+      "Subnets": [ { "Cidr": "172.16.20.0/24", "Gateway": "172.16.20.1", "Ranges": [ { "Start": "172.16.20.1", "End": "172.16.20.50" } ] } ],
+      "Allocations": [],
+      "AllocationsAvailable": true,
+      "Usage": { "Total": 50, "Allocated": 0, "Free": 50 }
+    }
+  ]
+}

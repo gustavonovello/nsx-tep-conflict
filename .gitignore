@@ -1,0 +1,5 @@
+# Coletas e relatórios reais contêm IPs/hostnames do ambiente — nunca versionar
+*.json
+!samples/*.json
+relatorio/
+*.csv
